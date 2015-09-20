@@ -4,7 +4,7 @@ import (
 	"errors"
 	"flag"
 	"io"
-	"log"
+
 	"net/http"
 	"os"
 	"path/filepath"
@@ -72,9 +72,7 @@ func ErrHandlePut(w http.ResponseWriter, r *http.Request) error {
 		return err
 	}
 
-	dir := filepath.Dir(path)
-	log.Println(dir)
-	err = os.MkdirAll(dir, os.ModePerm)
+	err = os.MkdirAll(filepath.Dir(path), os.ModePerm)
 	if err != nil {
 		return err
 	}

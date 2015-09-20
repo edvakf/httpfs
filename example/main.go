@@ -30,9 +30,9 @@ func serveMartini() {
 }
 
 func serveGoji() {
-	goji.Get("/fs/*", httpfs.HandleGet)
-	goji.Put("/fs/*", httpfs.HandlePut)
-	goji.Delete("/fs/*", httpfs.HandleDelete)
+	goji.Get("/fs/[a-zA-Z0-9._/-]+", httpfs.HandleGet)
+	goji.Put("/fs/[a-zA-Z0-9._/-]+", httpfs.HandlePut)
+	goji.Delete("/fs/[a-zA-Z0-9._/-]+", httpfs.HandleDelete)
 	goji.ServeListener(bind.Socket(":10002"))
 }
 

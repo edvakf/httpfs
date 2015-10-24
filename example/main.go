@@ -39,9 +39,9 @@ func serveGoji() {
 
 func serveGorilla() {
 	r := mux.NewRouter()
-	r.HandleFunc("/{path:.+}", httpfs.HandleGet).Methods("GET")
-	r.HandleFunc("/{path:.+}", httpfs.HandlePut).Methods("PUT")
-	r.HandleFunc("/{path:.+}", httpfs.HandleDelete).Methods("DELETE")
+	r.HandleFunc("/fs/{path:.+}", httpfs.HandleGet).Methods("GET")
+	r.HandleFunc("/fs/{path:.+}", httpfs.HandlePut).Methods("PUT")
+	r.HandleFunc("/fs/{path:.+}", httpfs.HandleDelete).Methods("DELETE")
 	http.ListenAndServe(":10003", r)
 }
 

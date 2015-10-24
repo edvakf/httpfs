@@ -12,6 +12,7 @@ import (
 
 	"github.com/edvakf/httpfs"
 	"github.com/go-martini/martini"
+	"github.com/gorilla/mux"
 	"github.com/zenazn/goji"
 	"github.com/zenazn/goji/bind"
 )
@@ -36,11 +37,20 @@ func serveGoji() {
 	goji.ServeListener(bind.Socket(":10002"))
 }
 
+func serveGorilla() {
+	r := mux.NewRouter()
+	r.HandleFunc("/{path:.+}", httpfs.HandleGet).Methods("GET")
+	r.HandleFunc("/{path:.+}", httpfs.HandlePut).Methods("PUT")
+	r.HandleFunc("/{path:.+}", httpfs.HandleDelete).Methods("DELETE")
+	http.ListenAndServe(":10003", r)
+}
+
 func main() {
 	flag.Parse()
 	go servePlainHTTP()
 	go serveMartini()
 	go serveGoji()
+	go serveGorilla()
 
 	ch := make(chan os.Signal, 1)
 	signal.Notify(ch,

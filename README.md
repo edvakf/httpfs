@@ -39,6 +39,16 @@ func serveGoji() {
 }
 ```
 
+```go
+func serveGorilla() {
+	r := mux.NewRouter()
+	r.HandleFunc("/{path:.+}", httpfs.HandleGet).Methods("GET")
+	r.HandleFunc("/{path:.+}", httpfs.HandlePut).Methods("PUT")
+	r.HandleFunc("/{path:.+}", httpfs.HandleDelete).Methods("DELETE")
+	http.ListenAndServe(":10003", r)
+}
+```
+
 ## client
 
 By curl
